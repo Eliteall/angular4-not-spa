@@ -7,11 +7,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, 'build/'),
     entry: {
-        index: './scripts/main.js'
+    index: './scripts/main.js'
     },
     output: {
         path: path.resolve(__dirname, 'public/'),
-        filename: 'script/[name].js'
+        filename: 'scripts/[name].js'
     },
     module: {
         rules: [
@@ -77,7 +77,7 @@ module.exports = {
         }]),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'commons',
-            filename: 'script/commons.js',
+            filename: 'scripts/commons.js',
         }),
         new webpack.ContextReplacementPlugin(
             /angular[\/\\]core[\/\\]@angular/,

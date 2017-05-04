@@ -3,7 +3,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app.module';
 import { environment } from './environments/environment';
-import '../sass/styles.scss'
+import '../css/styles.scss'
 
 if (environment.production) {
     enableProdMode();

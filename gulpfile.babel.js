@@ -14,9 +14,9 @@ gulp.task('compile', () => {
 });
 
 /** Copy sass */
-gulp.task('sass', () => {
-    return gulp.src('./src/sass/**/*scss')
-        .pipe(gulp.dest('build/sass'));
+gulp.task('sass', ['compile'], () => {
+    return gulp.src('./src/css/**/*')
+        .pipe(gulp.dest('build/css'));
 });
 
 const webpackStream = require("webpack-stream");
@@ -26,8 +26,10 @@ const webpack = require("webpack");
 const webpackConfig = require("./webpack.config.babel");
 
 // タスクの定義
-gulp.task("default", () => {
+gulp.task("webpack", ['sass'], () => {
     // ☆ webpackStreamの第2引数にwebpackを渡す☆
     return webpackStream(webpackConfig, webpack)
         .pipe(gulp.dest('public'));
 });
+
+gulp.task('default', ['webpack']);
