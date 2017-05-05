@@ -26,5 +26,16 @@
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useBabel": true,
+    "babelOptions": {
+      "presets": [
+        "es2015"
+      ],
+      "plugins": []
+    },
+    "useWebpackText": true,
+    "doTypeCheck": false
+  }
 }

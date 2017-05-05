@@ -2,7 +2,7 @@
   "name": "angular4-not-spa",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -59,6 +59,7 @@
     "rxjs": "^5.3.1",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.17.0",
+    "ts-loader": "^2.0.3",
     "url-loader": "^0.5.8",
     "vinyl-source-stream": "^1.1.0",
     "webpack": "^2.4.1",

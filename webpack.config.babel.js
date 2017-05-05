@@ -5,15 +5,19 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    context: path.resolve(__dirname, 'build/'),
+    context: path.resolve(__dirname, 'src/'),
     entry: {
-    main: './scripts/main.js',
-    vendor: './scripts/vendor.js',
-    polyfills: './scripts/polyfills.js',
+        main: './scripts/main.ts',
+        vendor: './scripts/vendor.ts',
+        polyfills: './scripts/polyfills.ts',
     },
     output: {
         path: path.resolve(__dirname, 'public/'),
-        filename: 'scripts/[name].js'
+        filename: 'scripts/[name].js',
+        chunkFilename: '[id].[hash].chunk.js',
+    },
+    resolve: {
+        extensions: ['*', '.ts', '.js', '.json', '.css', '.scss', '.html'],
     },
     module: {
         rules: [
@@ -21,7 +25,7 @@ module.exports = {
                 test: /\.ts$/,
                 use: [
                     "awesome-typescript-loader",
-                    "angular2-template - loader"
+                    "angular2-template-loader"
                 ]
             },
             {
@@ -57,10 +61,10 @@ module.exports = {
             },
             {
                 test: /\.html$/,
+                exclude: /index.html/,
                 use: {
-                    loader: 'file-loader?name=templates/[hash].[ext]'
-                },
-                exclude: ['./src/index.html']
+                    loader: 'file-loader?name=templates/[name].[ext]'
+                }
             }
         ]
     },
@@ -73,18 +77,16 @@ module.exports = {
         new CopyWebpackPlugin([{
             from: '../src/images',
             to: 'images'
-        }, {
-            from: '../src/index.html',
-            to: ''
         }]),
         new webpack.optimize.CommonsChunkPlugin({
             name: ['vendor', 'polyfills']
         }),
         //生成したBundleを埋め込むhtmlファイルを指定します。
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-      chunksSortMode: 'dependency'
-    }),
+        new HtmlWebpackPlugin({
+            template: './index.html',
+            inject: 'head',
+            chunksSortMode: 'dependency'
+        }),
         new webpack.ContextReplacementPlugin(
             /angular[\/\\]core[\/\\]@angular/,
             path.resolve(__dirname, 'src'),
