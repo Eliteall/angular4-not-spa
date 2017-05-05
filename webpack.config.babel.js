@@ -7,7 +7,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, 'build/'),
     entry: {
-    index: './scripts/main.js'
+    main: './scripts/main.js',
+    vendor: './scripts/vendor.js',
+    polyfills: './scripts/polyfills.js',
     },
     output: {
         path: path.resolve(__dirname, 'public/'),
@@ -65,7 +67,7 @@ module.exports = {
     devtool: 'cheap-module-eval-source-map',
     plugins: [
         new ExtractTextPlugin({
-            filename: 'css/[name].css',
+            filename: 'css/styles.css',
             allChunks: true
         }),
         new CopyWebpackPlugin([{
@@ -76,9 +78,13 @@ module.exports = {
             to: ''
         }]),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'commons',
-            filename: 'scripts/commons.js',
+            name: ['vendor', 'polyfills']
         }),
+        //生成したBundleを埋め込むhtmlファイルを指定します。
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      chunksSortMode: 'dependency'
+    }),
         new webpack.ContextReplacementPlugin(
             /angular[\/\\]core[\/\\]@angular/,
             path.resolve(__dirname, 'src'),

@@ -32,4 +32,16 @@ gulp.task("webpack", ['sass'], () => {
         .pipe(gulp.dest('public'));
 });
 
-gulp.task('default', ['webpack']);
+const browserSync = require('browser-sync');
+ 
+/** Run Web server */
+gulp.task('serve', ['webpack'], () => {
+    return browserSync.init(null, {
+        server: {
+            baseDir: 'public/'
+        },
+        reloadDelay: 1000
+    })
+});
+
+gulp.task('default', ['serve']);
