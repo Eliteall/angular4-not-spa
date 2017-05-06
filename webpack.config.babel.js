@@ -41,16 +41,16 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: ['css-loader'],
+                    fallbackLoader: "to-string-loader",
+                    loader: ['css-loader'],
                     publicPath: '../'
                 })
             },
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: ['css-loader', 'sass-loader']
+                    fallbackLoader: "to-string-loader",
+                    loader: ['css-loader', 'sass-loader']
                 })
             },
             {
