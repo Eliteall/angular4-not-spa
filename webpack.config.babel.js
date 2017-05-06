@@ -24,6 +24,7 @@ module.exports = {
             {
                 test: /\.ts$/,
                 use: [
+                    "babel-loader",
                     "awesome-typescript-loader",
                     "angular2-template-loader"
                 ]
@@ -32,14 +33,12 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
-                    loader: "babel-loader",
-                    options: {
-                        presets: [['es2015', { "modules": false }]]
-                    }
+                    loader: "babel-loader"
                 }
             },
             {
                 test: /\.css$/,
+                exclude: /public/,
                 use: ExtractTextPlugin.extract({
                     fallbackLoader: "to-string-loader",
                     loader: ['css-loader'],
@@ -50,7 +49,8 @@ module.exports = {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
                     fallbackLoader: "to-string-loader",
-                    loader: ['css-loader', 'sass-loader']
+                    loader: ['css-loader', 'sass-loader'],
+                    publicPath: '../'
                 })
             },
             {
@@ -84,7 +84,7 @@ module.exports = {
         //生成したBundleを埋め込むhtmlファイルを指定します。
         new HtmlWebpackPlugin({
             template: './index.html',
-            inject: 'head',
+            inject: 'body',
             chunksSortMode: 'dependency'
         }),
         new webpack.ContextReplacementPlugin(
