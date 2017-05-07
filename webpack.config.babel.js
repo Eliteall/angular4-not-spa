@@ -25,8 +25,7 @@ module.exports = {
                 test: /\.ts$/,
                 use: [
                     "babel-loader",
-                    "awesome-typescript-loader",
-                    "angular2-template-loader"
+                    "awesome-typescript-loader"
                 ]
             },
             {
@@ -77,6 +76,9 @@ module.exports = {
         new CopyWebpackPlugin([{
             from: '../src/images',
             to: 'images'
+        },{
+            from: '../src/templates',
+            to: 'templates'
         }]),
         new webpack.optimize.CommonsChunkPlugin({
             name: ['vendor', 'polyfills']
